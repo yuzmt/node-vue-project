@@ -1,7 +1,7 @@
 <!--
  * @Description: 新建物品
  * @Author: zmt
- * @LastEditTime: 2020-05-08 13:28:14
+ * @LastEditTime: 2020-05-08 17:07:49
  -->
 <template>
   <div class="about">
@@ -100,14 +100,14 @@ export default {
   .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
+    width: 5rem;
+    height: 5rem;
+    line-height: 5rem;
     text-align: center;
   }
   .avatar {
-    width: 178px;
-    height: 178px;
+    width: 5rem;
+    height: 5rem;
     display: block;
   }
 </style>
