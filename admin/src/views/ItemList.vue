@@ -1,7 +1,7 @@
 <!--
  * @Description: 分类物品
  * @Author: zmt
- * @LastEditTime: 2020-05-08 13:39:16
+ * @LastEditTime: 2020-05-09 11:14:20
  -->
 
 <template>
@@ -43,7 +43,7 @@ export default {
     },
 
     remove (row) {
-      this.$confirm(`是否删除分类 "${row.name}"`, '提示', {
+      this.$confirm(`是否删除物品 "${row.name}"`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
