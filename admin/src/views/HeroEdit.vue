@@ -1,7 +1,7 @@
 <!--
  * @Description: 新建英雄/编辑英雄
  * @Author: zmt
- * @LastEditTime: 2020-05-08 17:17:50
+ * @LastEditTime: 2020-05-09 12:17:34
  -->
 <template>
   <div class="about">
@@ -178,29 +178,3 @@ export default {
   },
 }
 </script>
-
-<style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 5rem;
-    height: 5rem;
-    line-height: 5rem;
-    text-align: center;
-  }
-  .avatar {
-    width: 5rem;
-    height: 5rem;
-    display: block;
-  }
-</style>
