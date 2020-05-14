@@ -1,3 +1,8 @@
+<!--
+ * @Description: 
+ * @Author: zmt
+ * @LastEditTime: 2020-05-14 14:51:01
+ -->
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
@@ -7,6 +12,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import './style.scss'
 
 export default {
   name: 'App',
