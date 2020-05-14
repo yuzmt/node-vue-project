@@ -1,7 +1,7 @@
 <!--
  * @Description: 新建分类
  * @Author: zmt
- * @LastEditTime: 2020-05-08 11:03:29
+ * @LastEditTime: 2020-05-13 10:30:35
  -->
 <template>
   <div class="about">
@@ -23,7 +23,6 @@
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
-    </el-form>
   </div>
 </template>
 

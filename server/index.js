@@ -1,12 +1,14 @@
 /*
  * @Description: 入口文件
  * @Author: zmt
- * @LastEditTime: 2020-05-08 13:24:18
+ * @LastEditTime: 2020-05-09 17:09:24
  */
 
 const express = require("express")
 
 const app = express()
+
+app.set('secret', 'kj2us7f8hf832djq')
 
 app.use(require('cors')())
 app.use(express.json())

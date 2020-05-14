@@ -1,7 +1,7 @@
 <!--
  * @Description: 新建广告位
  * @Author: zmt
- * @LastEditTime: 2020-05-09 12:23:22
+ * @LastEditTime: 2020-05-14 13:56:36
  -->
 <template>
   <div class="about">
@@ -20,7 +20,8 @@
             <el-form-item label="图标" style="marginTop: 22px">
               <el-upload
                 class="avatar-uploader"
-                :action="$http.defaults.baseURL + '/upload'"
+                :action="uploadUrl"
+                :headers="getAuthHeaders()"
                 :show-file-list="false"
                 :on-success="res => $set(item, 'image', res.url)">
                 <img v-if="item.image" :src="item.image" class="avatar">

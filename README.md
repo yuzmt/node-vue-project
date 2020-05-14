@@ -1,7 +1,7 @@
 <!--
  * @Description: 
  * @Author: zmt
- * @LastEditTime: 2020-05-07 17:18:31
+ * @LastEditTime: 2020-05-09 12:29:49
  -->
 # 【全栈之巅】Node.js + Vue.js 全栈开发王者荣耀手机端官网和管理后台
 > 本项目是 [Bilibili 全栈之巅](https://space.bilibili.com/341919508) 视频教程相关源码
@@ -32,7 +32,7 @@
 1. 技能编辑
 
 1. 文章管理
-1. 富文本编辑器 (quill)
+1. 富文本编辑器 (vue2-editor)
 
 1. 首页广告管理
 

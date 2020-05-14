@@ -1,7 +1,7 @@
 <!--
  * @Description: 新建物品
  * @Author: zmt
- * @LastEditTime: 2020-05-09 12:17:42
+ * @LastEditTime: 2020-05-14 13:57:08
  -->
 <template>
   <div class="about">
@@ -23,7 +23,8 @@
       <el-form-item label="图片">
         <el-upload
           class="avatar-uploader"
-          :action="$http.defaults.baseURL + '/upload'"
+          :action="uploadUrl"
+          :headers="getAuthHeaders()"
           :show-file-list="false"
           :on-success="afterUpload">
           <img v-if="model.icon" :src="model.icon" class="avatar">

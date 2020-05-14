@@ -1,10 +1,11 @@
 /*
  * @Description: 
  * @Author: zmt
- * @LastEditTime: 2020-05-09 11:54:34
+ * @LastEditTime: 2020-05-14 13:32:01
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Login from '../views/Login.vue'
 import Main from '../views/Main.vue'
 import CategoryEdit from '../views/CategoryEdit.vue'
 import CategoryList from '../views/CategoryList.vue'
@@ -16,10 +17,18 @@ import ArticleEdit from '../views/ArticleEdit.vue'
 import ArticleList from '../views/ArticleList.vue'
 import AdEdit from '../views/AdEdit.vue'
 import AdList from '../views/AdList.vue'
+import AdminUserEdit from '../views/AdminUserEdit.vue'
+import AdminUserList from '../views/AdminUserList.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: { isPublic: true }
+  },
   {
     path: '/',
     name: 'main',
@@ -44,6 +53,10 @@ const routes = [
       { path: '/ads/create', component: AdEdit, },
       { path: '/ads/edit/:id', component: AdEdit, props: true, },
       { path: '/ads/list', component: AdList, },
+
+      { path: '/admin_users/create', component: AdminUserEdit, },
+      { path: '/admin_users/edit/:id', component: AdminUserEdit, props: true, },
+      { path: '/admin_users/list', component: AdminUserList, },
     ],
   },
 ]
@@ -52,4 +65,10 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if(!to.meta.isPublic && !localStorage.token) {
+    return next('/login')
+  }
+  next() 
+})
 export default router

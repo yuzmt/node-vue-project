@@ -1,7 +1,7 @@
 /*
  * @Description: 
  * @Author: zmt
- * @LastEditTime: 2020-05-09 12:18:10
+ * @LastEditTime: 2020-05-14 13:46:27
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -16,6 +16,20 @@ Vue.prototype.$http = http // 如此, 可以在任何页面通过使用 this.$ht
 
 Vue.config.productionTip = false
 
+Vue.mixin({
+  computed: {
+    uploadUrl() {
+      return this.$http.defaults.baseURL + '/upload'
+    }
+  },
+  methods: {
+    getAuthHeaders() {
+      return {
+        Authorization: `Bearer ${localStorage.token || ''}`
+      }
+    }
+  }
+})
 
 new Vue({
   router,

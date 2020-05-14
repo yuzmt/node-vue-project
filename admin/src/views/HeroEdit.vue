@@ -1,13 +1,13 @@
 <!--
  * @Description: 新建英雄/编辑英雄
  * @Author: zmt
- * @LastEditTime: 2020-05-09 12:17:34
+ * @LastEditTime: 2020-05-14 13:56:52
  -->
 <template>
   <div class="about">
     <h1>{{ id ? '编辑' : '新建' }}英雄</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
-      <el-tabs type="border-card" value="skills">
+      <el-tabs type="border-card">
         <el-tab-pane label="基础信息">
           <el-form-item label="名称">
             <el-input v-model="model.name"></el-input>
@@ -18,7 +18,8 @@
           <el-form-item label="图片">
             <el-upload
               class="avatar-uploader"
-              :action="$http.defaults.baseURL + '/upload'"
+              :action="uploadUrl"
+              :headers="getAuthHeaders()"
               :show-file-list="false"
               :on-success="afterUpload">
               <img v-if="model.avatar" :src="model.avatar" class="avatar">
@@ -87,8 +88,8 @@
               <el-form-item label="图标">
                 <el-upload
                   class="avatar-uploader"
-                  :action="$http.defaults.baseURL + '/upload'"
-                  :show-file-list="false"
+                  :action="uploadUrl"
+                  :headers="getAuthHeaders()"
                   :on-success="res => $set(item, 'icon', res.url)">
                   <img v-if="item.icon" :src="item.icon" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>

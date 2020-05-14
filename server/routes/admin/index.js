@@ -1,15 +1,18 @@
 /*
  * @Description: 后端路由
  * @Author: zmt
- * @LastEditTime: 2020-05-08 13:26:03
+ * @LastEditTime: 2020-05-14 11:33:27
  */
 
 module.exports = app => {
   const express = require('express')
+  const jwt = require('jsonwebtoken')
+  const assert = require('http-assert')
+  const AdminUser = require('../../models/AdminUser')
   const router = express.Router({
     mergeParams: true
   })
-  // 新建分类名称
+  // 创建资源
   router.post('/', async(req, res) => {
     const model = await req.Model.create(req.body)
     res.send(model)
@@ -19,7 +22,7 @@ module.exports = app => {
     const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
     res.send(model)
   })
-  // 获取分类列表
+  // 资源列表
   router.get('/', async(req, res) => {
     const queryOptions = {}
     if(req.Model.modelName === 'Category') {
@@ -28,28 +31,52 @@ module.exports = app => {
     const items = await req.Model.find().setOptions(queryOptions).limit(10)
     res.send(items)
   })
-  // 获取修改对应的数据
+  // 资源详情
   router.get('/:id', async(req, res) => {
     const model = await req.Model.findById(req.params.id)
     res.send(model)
   })
-  // 删除分类名称
+  // 删除资源
   router.delete('/:id', async(req, res) => {
     await req.Model.findByIdAndDelete(req.params.id, req.body)
     res.send({success: true})
   })
-  app.use('/admin/api/rest/:resource', (req, res, next) => {
-    const modelName = require('inflection').classify(req.params.resource)
-    req.Model = require(`../../models/${modelName}`)
-    next()
-  }, router)
+
+  // 登录校验中间件
+  const authMiddleware = require('../../middleware/auth')
+
+  const resourceMiddleware = require('../../middleware/resource')
+
+  app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), router)
 
   const multer = require('multer')
   // 希望文件上传的地址
   const upload = multer({dest: __dirname + '/../../uploads'})
-  app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
+  app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
     const file = req.file // req 上面的 file 就是通过中间件 multer 添加上去的
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
+  })
+
+  // 登录校验
+  app.post('/admin/api/login', async (req, res) => {
+    const { username, password } = req.body
+    // 1. 根据用户名找用户
+    const user = await AdminUser.findOne({username}).select('+password')
+    // user存在继续往下走, 不存在状态码为422, 提示'用户不存在'
+    assert(user, 422, '用户不存在')
+    // 2. 校验密码
+    const isValid = require('bcrypt').compareSync(password, user.password)
+    assert(isValid, 422, '密码错误')
+    // 3. 返回token
+    const token = jwt.sign({ id: user._id }, app.get('secret'))
+    res.send({ token })
+  })
+
+  // 错误处理函数
+  app.use(async (err, req, res, next) => {
+    res.status(err.statusCode || 500).send({
+      message: err.message
+    })
   })
 }
